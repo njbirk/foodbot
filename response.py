@@ -5,4 +5,4 @@ def handle_response(message) -> str:
 
     # When finished, react to message with a thumbs ups
 
-    # If Danny sends a food request, reply with a funny message
+    # If Danny sends a food request, reply with a funny messagelo
