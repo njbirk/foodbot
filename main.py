@@ -1,4 +1,4 @@
-if __name__ == '__main__':
+import bot
 
-    # run bot
-    pass
+if __name__ == "__main__":
+    bot.run_Gordon()

@@ -1,7 +1,27 @@
 import discord
-import response
+import json
+import storage
 
-TOKEN = "MTEzNjQ5MDg0MzAzMzg0MTc2Ng.G9GxWk.v3Zd51u6c_iR8nS-QNAhZzGuOmi6k5UkrlHZgc"
 
-client = discord.Client()
-guild = discord.Guild
+def run_Gordon():
+    with open("config.json", "r") as token_file:
+        token = json.load(token_file)["token"]
+
+    TOKEN = token
+    client = discord.Client()
+
+    @client.event
+    async def on_ready():
+        print("Gordon is online!")
+
+    @client.event
+    async def on_message(message):
+        react_emoji = "\U0001F34D"
+
+        if message.author == client.user:
+            return
+
+        storage.store_message(message)
+        await message.add_reaction(react_emoji)
+
+    client.run(TOKEN)
