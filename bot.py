@@ -14,6 +14,7 @@ def run_Gordon():
     intents.presences = False
     intents.messages = True
     intents.message_content = True
+    intents.reactions = True
 
     TOKEN = token
     client = discord.Client(intents=intents)
@@ -29,13 +30,13 @@ def run_Gordon():
         schedule.every().wednesday.at("12:00").do(asyncio.run, send_grocery_list)
 
     @client.event
-    async def on_message(message):
-        react_emoji = "\U0001F34D"
-
-        if message.author == client.user:
+    async def on_reaction_add(reaction, user):
+        if user == client.user:
             return
 
-        storage.store_message(message.content)
-        await message.add_reaction(react_emoji)
+        react_emoji = "\U0001F34D"
+
+        storage.store_message(reaction.message.content)
+        await reaction.message.add_reaction(react_emoji)
 
     client.run(TOKEN)
